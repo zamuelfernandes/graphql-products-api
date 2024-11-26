@@ -1,7 +1,7 @@
 import { ApolloServer } from "apollo-server";
 import { productSchema } from "./schema/product";
 import { productResolvers } from "./resolvers/product";
-import { verifyToken } from "./utils/auth";
+import { verifyToken, generateToken } from "./utils/auth";
 
 const server = new ApolloServer({
   typeDefs: [productSchema],
@@ -13,7 +13,6 @@ const server = new ApolloServer({
   },
 });
 
-import { generateToken } from "./utils/auth";
 console.log(generateToken({ id: "123", role: "admin" }));
 
 server.listen().then(({ url }) => {
