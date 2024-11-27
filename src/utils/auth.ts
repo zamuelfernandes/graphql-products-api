@@ -1,8 +1,10 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import 'dotenv/config';
+
 import { getUserByEmail } from "../db/users";
 
-const SECRET_KEY = "process.env.MY_SECRET_KEY"; // Mantenha isso seguro e use variáveis de ambiente!
+const SECRET_KEY = process.env.MY_SECRET_KEY || "default_secret_key";
 
 export const generateToken = (user: { id: string; role: string }) => {
   return jwt.sign({ id: user.id, role: user.role }, SECRET_KEY, {
