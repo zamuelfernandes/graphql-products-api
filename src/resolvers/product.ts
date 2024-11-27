@@ -1,4 +1,4 @@
-import { getProductById, deleteProductById, getProducts } from "../db/products";
+import { getProductById, deleteProductById, products } from "../db/products";
 import { AuthenticationError } from "apollo-server";
 
 export const productResolvers = {
@@ -15,7 +15,7 @@ export const productResolvers = {
       if (!context.user) {
         throw new AuthenticationError("User not authenticated");
       }
-      return getProducts;
+      return products;
     },
   },
   Mutation: {
