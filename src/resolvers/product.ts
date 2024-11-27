@@ -35,6 +35,7 @@ export const productResolvers = {
       }
       return !!deleteProductById(args.id);
     },
+    // Resolver para atualizar um produto com base no ID
     updateProduct: (
       parent: any,
       args: { id: string; name?: string; price?: number; stock?: number },
