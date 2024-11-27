@@ -1,4 +1,9 @@
-import { getProductById, deleteProductById, getProducts } from "../db/products";
+import {
+  getProductById,
+  deleteProductById,
+  getProducts,
+  updateProductById,
+} from "../db/products";
 import { AuthenticationError } from "apollo-server";
 
 export const productResolvers = {
@@ -20,11 +25,37 @@ export const productResolvers = {
   },
   Mutation: {
     // Resolver para deletar um produto com base no ID
-    deleteProduct: (parent: any, args: { id: string }, context: { user: any }) => {
+    deleteProduct: (
+      parent: any,
+      args: { id: string },
+      context: { user: any }
+    ) => {
       if (!context.user || context.user.role !== "admin") {
         throw new AuthenticationError("User not authorized");
       }
       return !!deleteProductById(args.id);
+    },
+    updateProduct: (
+      parent: any,
+      args: { id: string; name?: string; price?: number; stock?: number },
+      context: { user: any }
+    ) => {
+      if (!context.user || context.user.role !== "admin") {
+        throw new AuthenticationError("User not authorized");
+      }
+
+      const updates = {
+        name: args.name,
+        price: args.price,
+        stock: args.stock,
+      };
+
+      const updatedProduct = updateProductById(args.id, updates);
+      if (!updatedProduct) {
+        throw new Error("Product not found");
+      }
+
+      return updatedProduct;
     },
   },
 };

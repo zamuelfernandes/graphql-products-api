@@ -17,3 +17,14 @@ export const deleteProductById = (id: string) => {
   }
   return null;
 };
+
+export const updateProductById = (id: string, updates: Partial<{ name: string; price: number; stock: number }>) => {
+  const product = _products.find((p) => p.id === id);
+  if (!product) return null;
+
+  if (updates.name !== undefined) product.name = updates.name;
+  if (updates.price !== undefined) product.price = updates.price;
+  if (updates.stock !== undefined) product.stock = updates.stock;
+
+  return product;
+};
