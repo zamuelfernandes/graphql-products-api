@@ -8,10 +8,11 @@
  *     description: |
  *       Este endpoint aceita **queries** e **mutations** no formato GraphQL para manipular os dados de produtos.  
  *       Exemplos de operações disponíveis:
- *       - Consultar um produto por ID (`product`)
  *       - Listar todos os produtos (`allProducts`)
+ *       - Consultar um produto por ID (`product`)
  *       - Atualizar informações de um produto (`updateProduct`)
  *       - Deletar um produto por ID (`deleteProduct`)
+ *       - Login de usuário (`login`)
  *     requestBody:
  *       required: true
  *       content:
@@ -40,11 +41,7 @@
  *                       id: "0",
  *                       name: "Updated Product A",
  *                       price: default price,
- *                       stock: 45
+ *                       stock: 35
  *                     }
- *       400:
- *         description: Requisição inválida ou erro nos dados fornecidos.
- *       401:
- *         description: Acesso não autorizado. Verifique o token de autenticação.
  */
  

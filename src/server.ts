@@ -29,7 +29,7 @@ const swaggerSpec = swaggerJsDoc(swaggerOptions);
 import express from "express";
 const app = express();
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/swagger-api-doc", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 server.start().then(() => {
   server.applyMiddleware({ app, path: "/graphql" });
