@@ -27,7 +27,7 @@ export const swaggerOptions: Options = {
           type: "object",
           properties: {
             id: {
-              type: "number",
+              type: "string",
               description: "ID único do produto",
               example: "01",
             },
@@ -53,7 +53,7 @@ export const swaggerOptions: Options = {
           type: "object",
           properties: {
             id: {
-              type: "numer",
+              type: "string",
               description: "ID único do usuário",
               example: "01",
             },

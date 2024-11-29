@@ -5,10 +5,9 @@ const _products = [
   { id: "3", name: "Product D", price: 400, stock: 30 },
   { id: "4", name: "Product E", price: 500, stock: 10 },
 ];
+export const getProducts = () => _products;
 
 export const getProductById = (id: string) => _products.find((p) => p.id === id);
-
-export const getProducts = _products;
 
 export const deleteProductById = (id: string) => {
   const index = _products.findIndex((p) => p.id === id);
