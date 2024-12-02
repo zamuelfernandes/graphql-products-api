@@ -22,8 +22,6 @@ const completeSchema = makeExecutableSchema({
 const shemaWithMiddleware = applyMiddleware(completeSchema, loggingMiddleware);
 
 const server = new ApolloServer({
-  // typeDefs: [productSchema, userSchema],
-  // resolvers: [productResolvers, userResolvers],
   schema: shemaWithMiddleware,
   plugins: [
     {

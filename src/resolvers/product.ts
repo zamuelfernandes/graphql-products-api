@@ -5,6 +5,7 @@ import {
   updateProductById,
   insertProduct,
 } from "../db/products";
+
 import {
   ApolloError,
   AuthenticationError,
@@ -194,6 +195,7 @@ export const productResolvers = {
         );
       }
     },
+    // Resolver para inserir um produto 
     insertProduct: async (
       parent: any,
       args: { name: string; price: number; stock: number },

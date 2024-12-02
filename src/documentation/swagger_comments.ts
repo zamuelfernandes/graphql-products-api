@@ -10,6 +10,7 @@
  *       Exemplos de operações disponíveis:
  *       - Listar todos os produtos (`allProducts`)
  *       - Consultar um produto por ID (`product`)
+ *       - Adicionar um produto (`insertProduct`)
  *       - Atualizar informações de um produto (`updateProduct`)
  *       - Deletar um produto por ID (`deleteProduct`)
  *       - Login de usuário (`login`)
