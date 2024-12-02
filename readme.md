@@ -21,17 +21,18 @@ Este projeto é uma implementação básica de uma API GraphQL desenvolvida com 
 3. Inicie o servidor:
 
    ```bash
-   npm start
+   npm run dev
    ```
 
-O servidor estará disponível em `http://localhost:4000`.
+- O servidor estará disponível em [http://localhost:4000/graphql](http://localhost:4000/graphql).
+- Com sua documentação Swagger disponível em [http://localhost:4000/swagg](http://localhost:4000/swagger-api-doc).
 
 ---
 
 ## 🛠️ **Configuração**
 
 - **Node.js**: Certifique-se de ter o Node.js instalado na versão 14 ou superior.
-- **Ambiente**: A API utiliza autenticação JWT. Gere um token para acessar as operações protegidas.
+- **Ambiente**: A API utiliza autenticação JWT. Gere um token com uma query de login para acessar as operações protegidas.
 
 ---
 
@@ -42,6 +43,7 @@ O servidor estará disponível em `http://localhost:4000`.
 - **GraphQL**: Linguagem de consulta e manipulação de dados.
 - **JWT (JSON Web Tokens)**: Implementação de autenticação e autorização.
 - **TypeScript**: Superset de JavaScript que adiciona tipagem estática.
+- **Swagger**: Para documentação de utilização.
 
 ---
 
