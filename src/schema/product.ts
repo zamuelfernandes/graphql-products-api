@@ -16,5 +16,6 @@ export const productSchema = gql`
   type Mutation {
     deleteProduct(id: ID!): Boolean
     updateProduct(id: ID!, name: String, price: Float, stock: Int): Product
+    insertProduct(name: String!, price: Float!, stock: Int!) : Product
   }
 `;

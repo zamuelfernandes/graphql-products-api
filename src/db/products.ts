@@ -7,7 +7,8 @@ const _products = [
 ];
 export const getProducts = () => _products;
 
-export const getProductById = (id: string) => _products.find((p) => p.id === id);
+export const getProductById = (id: string) =>
+  _products.find((p) => p.id === id);
 
 export const deleteProductById = (id: string) => {
   const index = _products.findIndex((p) => p.id === id);
@@ -17,13 +18,26 @@ export const deleteProductById = (id: string) => {
   return null;
 };
 
-export const updateProductById = (id: string, updates: Partial<{ name: string; price: number; stock: number }>) => {
+export const updateProductById = (
+  id: string,
+  updates: Partial<{ name: string; price: number; stock: number }>
+) => {
   const product = _products.find((p) => p.id === id);
   if (!product) return null;
 
   if (updates.name !== undefined) product.name = updates.name;
   if (updates.price !== undefined) product.price = updates.price;
   if (updates.stock !== undefined) product.stock = updates.stock;
+
+  return product;
+};
+
+export const insertProduct = (name: string, price: number, stock: number) => {
+  const lastProduct = _products[_products.length - 1];
+  const lastId = Number(lastProduct.id);
+
+  const product = { id: String(lastId + 1), name: name, price: price, stock: stock };
+  _products.push(product);
 
   return product;
 };

@@ -3,6 +3,7 @@ import {
   deleteProductById,
   getProducts,
   updateProductById,
+  insertProduct,
 } from "../db/products";
 import {
   ApolloError,
@@ -141,13 +142,15 @@ export const productResolvers = {
 
       // 2. Validação do Argumento
       const validations = {
-        id: (value: any) => typeof value === "string" || "ID inválido fornecido.",
-        name: (value: any) => typeof value === "string" || "Nome inválido fornecido.",
+        id: (value: any) =>
+          typeof value === "string" || "ID inválido fornecido.",
+        name: (value: any) =>
+          typeof value === "string" || "Nome inválido fornecido.",
         price: (value: any) =>
           (typeof value === "number" && value >= 0) ||
           "Valor de preço inválido fornecido.",
         stock: (value: any) =>
-          (typeof value === "number" && value >= 0) ||
+          (typeof value === "number" && value < 0) ||
           "Valor de estoque inválido fornecido.",
       };
 
@@ -176,6 +179,63 @@ export const productResolvers = {
         return updatedProduct;
       } catch (error) {
         console.log("Erro ao buscar produto:", error);
+
+        // 4. Tratamento de Erro
+        if (error instanceof ApolloError) {
+          throw error; // Rejogar erros esperados
+        }
+
+        throw new ApolloError(
+          "Erro interno no servidor.",
+          "INTERNAL_SERVER_ERROR",
+          {
+            http: { status: 500 },
+          }
+        );
+      }
+    },
+    insertProduct: async (
+      parent: any,
+      args: { name: string; price: number; stock: number },
+      context: { user: any }
+    ) => {
+      // 1. Autorização
+      if (!context.user || context.user.role !== "admin") {
+        throw new AuthenticationError("Usuário não autorizado.");
+      }
+
+      // 2. Validação do Argumento
+      const validations = {
+        name: (value: any) =>
+          typeof value === "string" || "Nome inválido fornecido.",
+        price: (value: any) =>
+          (typeof value === "number" && value >= 0) ||
+          "Valor de preço inválido fornecido.",
+        stock: (value: any) =>
+          (typeof value === "number" && value >= 0) ||
+          "Valor de estoque inválido fornecido.",
+      };
+
+      Object.entries(validations).forEach(([key, validate]) => {
+        if (key in args) {
+          const error = validate(args[key as keyof typeof args]);
+          if (error !== true) {
+            throw new UserInputError(error as string);
+          }
+        }
+      });
+
+      try {
+        // 3. Inserindo o Produto
+        const insertedProduct = await insertProduct(
+          args.name,
+          args.price,
+          args.stock
+        );
+
+        return insertedProduct;
+      } catch (error) {
+        console.log("Erro ao inserir produto:", error);
 
         // 4. Tratamento de Erro
         if (error instanceof ApolloError) {
