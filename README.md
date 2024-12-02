@@ -25,7 +25,7 @@ Este projeto é uma implementação básica de uma API GraphQL desenvolvida com 
    ```
 
 - O servidor estará disponível em [http://localhost:4000/graphql](http://localhost:4000/graphql).
-- Com sua documentação Swagger disponível em [http://localhost:4000/swagg](http://localhost:4000/swagger-api-doc).
+- Com sua documentação Swagger disponível em [http://localhost:4000/swagger-api-doc](http://localhost:4000/swagger-api-doc).
 
 ---
 
@@ -69,14 +69,15 @@ Este projeto é uma implementação básica de uma API GraphQL desenvolvida com 
   - `getProductById(id)`: Retorna um produto específico.
   - `getProducts()`: Retorna todos os produtos.
   - `deleteProductById(id)`: Remove um produto pelo ID.
-
+  - `insertProduct(id)`: Remove um produto pelo ID.
+  
 ---
 
 ### 3. **schema/products.ts: Esquema GraphQL**
 
 Define os tipos e operações suportadas:
 
-```graphql
+```gql
 type Product {
   id: ID!
   name: String!
@@ -85,12 +86,14 @@ type Product {
 }
 
 type Query {
-  product(id: ID!): Product
-  allProducts: [Product!]!
+   product(id: ID!): Product
+   allProducts: [Product!]!
 }
 
 type Mutation {
-  deleteProduct(id: ID!): Boolean!
+    deleteProduct(id: ID!): Boolean
+    updateProduct(id: ID!, name: String, price: Float, stock: Int): Product
+    insertProduct(name: String!, price: Float!, stock: Int!) : Product
 }
 ```
 
@@ -104,6 +107,8 @@ type Mutation {
 
 - **Mutations**:
   - `deleteProduct`: Remove um produto. Requer autenticação de administrador.
+  - `updateProduct`: Atualizar um produto. Requer autenticação de administrador.
+  - `insertProduct`: Inserir um produto. Requer autenticação de administrador.
 
 ---
 
@@ -121,7 +126,7 @@ Authorization: Bearer <seu-token>
 
 1. **Listar todos os produtos:**
 
-   ```graphql
+   ```gql
    query {
      allProducts {
        id
@@ -134,7 +139,7 @@ Authorization: Bearer <seu-token>
 
 2. **Buscar produto por ID:**
 
-   ```graphql
+   ```gql
    query {
      product(id: "1") {
        name
@@ -145,8 +150,24 @@ Authorization: Bearer <seu-token>
 
 3. **Deletar um produto (requer admin):**
 
-   ```graphql
+   ```gql
    mutation {
      deleteProduct(id: "1")
+   }
+   ```
+
+3. **Atualizar um produto (requer admin):**
+
+   ```gql
+   mutation {
+     updateProduct(id: "2", name: "Updated Product C", stock: 35) {id, name, price, stock}
+   }
+   ```
+
+3. **Inserir um produto (requer admin):**
+
+   ```gql
+   mutation {
+     insertProduct(name: "New Product F", price: 600, stock: 5) {id, name, price, stock}
    }
    ```
